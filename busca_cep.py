@@ -9,4 +9,4 @@ complemento = dados["complemento"]
 bairro = dados['bairro']
 localidade = dados['localidade']
 uf = dados['uf']
-print('Voce buscou por CEP',cep,'Com Bairro:',bairro, 'no Logradouro ',logradouro, complemento, uf )
+print('Voce buscou pelo CEP',cep,'Com Bairro:',bairro, 'no Logradouro ',logradouro, complemento, uf )
