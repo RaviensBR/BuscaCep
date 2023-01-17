@@ -3,8 +3,6 @@ cep = input('Digite seu Cep ' )
 link = f'https://viacep.com.br/ws/{cep}/json/'
 requisicao = requests.get(link)
 dados = requisicao.json()
-#print(dados)
-
 cep = dados['cep']
 logradouro = dados['logradouro']
 complemento = dados["complemento"]
