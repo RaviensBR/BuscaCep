@@ -1,11 +1,20 @@
 import requests
-cep = input('Digite seu Cep ')
-while:
-
-      if not cep == int:
+def EntradaInt(msg):
+    ok = False
+    valor = 0
+    while True:
+        n = str(input(msg))
+        if n.isnumeric():
+            valor = int(n)
+            ok = True
+        else:
+            print('\033[0;31mERRO! Digite um CEP Válido. \033[m')
+        if ok:
             break
+    return valor
 
-link = f'https://viacep.com.br/ws/{cep}/json/'
+n = EntradaInt('Digite seu Cep: ')
+link = f'https://viacep.com.br/ws/{n}/json/'
 requisicao = requests.get(link)
 dados = requisicao.json()
 cep = dados['cep']

@@ -1,14 +1,12 @@
-# game loop
-while 1:
-    enemy_1 = input()  # name of enemy 1
-    dist_1 = int(input())  # distance to enemy 1
-    enemy_2 = input()  # name of enemy 2
-    dist_2 = int(input())  # distance to enemy 2
+import dearpygui.dearpygui as dpg
+import dearpygui.demo as demo
 
-    # Write an action using print
+dpg.create_context()
+dpg.create_viewport(title='Custom Title', width=600, height=600)
 
-    if dist_1 < dist_2:
-        print(enemy_1)
-    else:
-        print(enemy_2)
-    # Enter the code here
+demo.show_demo()
+
+dpg.setup_dearpygui()
+dpg.show_viewport()
+dpg.start_dearpygui()
+dpg.destroy_context()

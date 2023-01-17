@@ -1,10 +1,5 @@
 import requests
-cep = input('Digite seu Cep ')
-while:
-
-      if not cep == int:
-            break
-
+cep = input(int('Digite seu Cep '))
 link = f'https://viacep.com.br/ws/{cep}/json/'
 requisicao = requests.get(link)
 dados = requisicao.json()
