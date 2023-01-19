@@ -1,12 +1,22 @@
-import dearpygui.dearpygui as dpg
-import dearpygui.demo as demo
+while True:
+    try:
+        cep = input('Digite os 8 numeros do CEP: ')
+        if cep.isnumeric() and len(cep) == 3: # é um "número" de 3 dígitos
+            break # sai do loop
+        print('O número deve ter 8 dígitos')
+    except ValueError:
+        print('Não foi digitado um número')
 
-dpg.create_context()
-dpg.create_viewport(title='Custom Title', width=600, height=600)
+print(cep[::-1]) # imprime invertido
 
-demo.show_demo()
-
-dpg.setup_dearpygui()
-dpg.show_viewport()
-dpg.start_dearpygui()
-dpg.destroy_context()
+link = f'https://viacep.com.br/ws/{cep}/json/'
+requisicao = requests.get(link)
+dados = requisicao.json()
+cep = dados['cep']
+logradouro = dados['logradouro']
+complemento = dados["complemento"]
+bairro = dados['bairro']
+localidade = dados['localidade']
+uf = dados['uf']
+print('Voce buscou pelo CEP', cep, 'Com Bairro:', bairro,
+      'no Logradouro ', logradouro, complemento, uf)

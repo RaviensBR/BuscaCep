@@ -1,27 +1,26 @@
 import requests
-def EntradaInt(msg):
-    ok = False
-    valor = 0
-    while True:
-        n = str(input(msg))
-        if n.isnumeric():
-            valor = int(n)
-            ok = True
-        else:
-            print('\033[0;31mERRO! Digite um CEP Válido. \033[m')
-        if ok:
+while True:
+        try:
+            cep = input('Digite os 8 numeros do CEP: ')
+            if cep.isnumeric() and len(cep) == 8:  # é um "número" de 3 dígitos
+                break  # sai do loop
+            print('O número deve ter 8 dígitos')
+        except ValueError:
+            print('Não foi digitado um número')
             break
-    return valor
 
-n = EntradaInt('Digite seu Cep: ')
-link = f'https://viacep.com.br/ws/{n}/json/'
-requisicao = requests.get(link)
-dados = requisicao.json()
-cep = dados['cep']
-logradouro = dados['logradouro']
-complemento = dados["complemento"]
-bairro = dados['bairro']
-localidade = dados['localidade']
-uf = dados['uf']
-print('Voce buscou pelo CEP', cep, 'Com Bairro:', bairro,
-      'no Logradouro ', logradouro, complemento, uf)
+        try:
+            link = f'https://viacep.com.br/ws/{cep}/json/'
+            requisicao = requests.get(link)
+            dados = requisicao.json()
+            cep = dados['cep']
+            logradouro = dados['logradouro']
+            complemento = dados["complemento"]
+            bairro = dados['bairro']
+            localidade = dados['localidade']
+            uf = dados['uf']
+            print('Voce buscou pelo CEP', cep, 'Com Bairro:', bairro,
+                'no Logradouro ', logradouro, complemento, uf)
+
+        except KeyError:
+            ,print('CEP INVALIDO')
