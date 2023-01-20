@@ -1,0 +1,3 @@
+[application]
+name = "busca_cep"
+main_module = "busca_cep"

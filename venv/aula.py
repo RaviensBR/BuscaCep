@@ -1,14 +1,41 @@
-# game loop
-while 1:
-    enemy_1 = input()  # name of enemy 1
-    dist_1 = int(input())  # distance to enemy 1
-    enemy_2 = input()  # name of enemy 2
-    dist_2 = int(input())  # distance to enemy 2
+import requests
+from tkinter import *
 
-    # Write an action using print
+# Create a window
+root = Tk()
+root.title("Busca CEP")
 
-    if dist_1 < dist_2:
-        print(enemy_1)
-    else:
-        print(enemy_2)
-    # Enter the code here
+# Create an input field for the user to enter the CEP
+entry = Entry(root)
+entry.pack()
+
+# Create a label to display the result
+resultado_label = Label(root, text="")
+resultado_label.pack()
+
+# Create a button to start the search
+buscar_button = Button(root, text="Buscar", command=buscaCep)
+buscar_button.pack()
+
+def buscaCep():
+    cep = entry.get()
+    try:
+        link = f'https://viacep.com.br/ws/{cep}/json/'
+        requisicao = requests.get(link)
+        requisicao.raise_for_status()
+        dados = requisicao.json()
+        cep = dados['cep']
+        logradouro = dados['logradouro']
+        complemento = dados["complemento"]
+        bairro = dados['bairro']
+        localidade = dados['localidade']
+        uf = dados['uf']
+        resultado_label.config(text=f'Endereço completo: {logradouro}, {complemento}\nBairro: {bairro}\nLocalidade: {localidade}\nUF: {uf}')
+    except requests.exceptions.HTTPError as errh:
+        resultado_label.config(text=f'HTTP Error: {errh}')
+    except requests.exceptions.ConnectionError as errc:
+        resultado_label.config(text=f'Error Connecting: {errc}')
+    except requests.exceptions.Timeout as errt:
+        resultado_label.config(text=f'Timeout Error: {errt}')
+    except KeyError:
+        resultado
